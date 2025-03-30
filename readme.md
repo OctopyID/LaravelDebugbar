@@ -1,4 +1,5 @@
 ## Debugbar for Laravel
+
 ![Unit Tests](https://github.com/barryvdh/laravel-debugbar/workflows/Unit%20Tests/badge.svg)
 [![Packagist License](https://img.shields.io/badge/Licence-MIT-blue)](http://choosealicense.com/licenses/mit/)
 [![Latest Stable Version](https://img.shields.io/packagist/v/barryvdh/laravel-debugbar?label=Stable)](https://packagist.org/packages/barryvdh/laravel-debugbar)
@@ -17,30 +18,33 @@ Read [the documentation](http://phpdebugbar.com/docs/) for more configuration op
 > Use the DebugBar only in development. Do not use Debugbar on publicly accessible websites, as it will leak information from stored requests (by design).
 
 > [!WARNING]
->  It can also slow the application down (because it has to gather and render data). So when experiencing slowness, try disabling some of the collectors.
+> It can also slow the application down (because it has to gather and render data). So when experiencing slowness, try disabling some of the collectors.
 
 This package includes some custom collectors:
- - QueryCollector: Show all queries, including binding + timing
- - RouteCollector: Show information about the current Route.
- - ViewCollector: Show the currently loaded views. (Optionally: display the shared data)
- - EventsCollector: Show all events
- - LaravelCollector: Show the Laravel version and Environment. (disabled by default)
- - SymfonyRequestCollector: replaces the RequestCollector with more information about the request/response
- - LogsCollector: Show the latest log entries from the storage logs. (disabled by default)
- - FilesCollector: Show the files that are included/required by PHP. (disabled by default)
- - ConfigCollector: Display the values from the config files. (disabled by default)
- - CacheCollector: Display all cache events. (disabled by default)
+
+- QueryCollector: Show all queries, including binding + timing
+- RouteCollector: Show information about the current Route.
+- ViewCollector: Show the currently loaded views. (Optionally: display the shared data)
+- EventsCollector: Show all events
+- LaravelCollector: Show the Laravel version and Environment. (disabled by default)
+- SymfonyRequestCollector: replaces the RequestCollector with more information about the request/response
+- LogsCollector: Show the latest log entries from the storage logs. (disabled by default)
+- FilesCollector: Show the files that are included/required by PHP. (disabled by default)
+- ConfigCollector: Display the values from the config files. (disabled by default)
+- CacheCollector: Display all cache events. (disabled by default)
 
 Bootstraps the following collectors for Laravel:
- - LogCollector: Show all Log messages
- - SymfonyMailCollector for Mail
+
+- LogCollector: Show all Log messages
+- SymfonyMailCollector for Mail
 
 And the default collectors:
- - PhpInfoCollector
- - MessagesCollector
- - TimeDataCollector (With Booting and Application timing)
- - MemoryCollector
- - ExceptionsCollector
+
+- PhpInfoCollector
+- MessagesCollector
+- TimeDataCollector (With Booting and Application timing)
+- MemoryCollector
+- ExceptionsCollector
 
 It also provides a facade interface (`Debugbar`) for easy logging Messages, Exceptions and Time
 
@@ -60,7 +64,8 @@ The Debugbar will be enabled when `APP_DEBUG` is `true`.
 
 ### Laravel without auto-discovery:
 
-If you don't use auto-discovery, add the ServiceProvider to the providers list. For Laravel 11 or newer, add the ServiceProvider in bootstrap/providers.php. For Laravel 10 or older, add the ServiceProvider in config/app.php.
+If you don't use auto-discovery, add the ServiceProvider to the providers list. For Laravel 11 or newer, add the ServiceProvider in bootstrap/providers.php. For Laravel 10 or
+older, add the ServiceProvider in config/app.php.
 
 ```php
 Barryvdh\Debugbar\ServiceProvider::class,
@@ -76,7 +81,8 @@ public function register(): void
 }
 ```
 
-The profiler is enabled by default, if you have APP_DEBUG=true. You can override that in the config (`debugbar.enabled`) or by setting `DEBUGBAR_ENABLED` in your `.env`. See more options in `config/debugbar.php`
+The profiler is enabled by default, if you have APP_DEBUG=true. You can override that in the config (`debugbar.enabled`) or by setting `DEBUGBAR_ENABLED` in your `.env`. See more
+options in `config/debugbar.php`
 You can also set in your config if you want to include/exclude the vendor files also (FontAwesome, Highlight.js and jQuery). If you already use them in your site, set it to false.
 You can also only display the js or css vendors, by setting it to 'js' or 'css'. (Highlight.js requires both css + js, so set to `true` for syntax highlighting)
 
@@ -181,6 +187,7 @@ Note: Not using the auto-inject, will disable the Request information, because t
 You can add the default_request datacollector in the config as alternative.
 
 ## Enabling/Disabling on run time
+
 You can enable or disable the debugbar during run time.
 
 ```php
@@ -192,7 +199,7 @@ NB. Once enabled, the collectors are added (and could produce extra overhead), s
 
 ## Storage
 
-Debugbar remembers previous requests, which you can view using the Browse button on the right. This will only work if you enable `debugbar.storage.open` in the config. 
+Debugbar remembers previous requests, which you can view using the Browse button on the right. This will only work if you enable `debugbar.storage.open` in the config.
 Make sure you only do this on local development, because otherwise other people will be able to view previous requests.
 In general, Debugbar should only be used locally or at least restricted by IP.
 It's possible to pass a callback, which will receive the Request object, so you can determine access to the OpenHandler storage.
@@ -209,7 +216,8 @@ Add the following extensions to your TwigBridge config/extensions.php (or regist
 'Barryvdh\Debugbar\Twig\Extension\Stopwatch',
 ```
 
-The Dump extension will replace the [dump function](http://twig.sensiolabs.org/doc/functions/dump.html) to output variables using the DataFormatter. The Debug extension adds a `debug()` function which passes variables to the Message Collector,
+The Dump extension will replace the [dump function](http://twig.sensiolabs.org/doc/functions/dump.html) to output variables using the DataFormatter. The Debug extension adds a
+`debug()` function which passes variables to the Message Collector,
 instead of showing it directly in the template. It dumps the arguments, or when empty; all context variables.
 
 ```twig
